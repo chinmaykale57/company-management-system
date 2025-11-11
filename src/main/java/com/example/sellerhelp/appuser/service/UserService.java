@@ -8,6 +8,7 @@ import com.example.sellerhelp.appuser.repository.UserRepository;
 import com.example.sellerhelp.appuser.repository.UserSpecifications;
 import com.example.sellerhelp.constant.ActiveStatus;
 import com.example.sellerhelp.constant.UserRole;
+import com.example.sellerhelp.exception.ResourceNotFoundException;
 import com.example.sellerhelp.factory.entity.Factory;
 import com.example.sellerhelp.factory.entity.UserFactoryMapping;
 import com.example.sellerhelp.factory.repository.FactoryRepository;
@@ -235,13 +236,13 @@ public class UserService {
 
     @Transactional
     public String uploadUserImage(String userId, MultipartFile file) {
-        User user = userRepo.findByUserId(userId)
-                .orElseThrow(() -> new NoSuchElementException("User not found: " + userId));
-
+        if (!userRepo.existsByUserId(userId)) {
+            throw new ResourceNotFoundException("User not found with ID: " + userId);
+        }
         String imageUrl = cloudinaryService.uploadFile(file);
-        user.setImageUrl(imageUrl);
 
-        userRepo.save(user);
+        userRepo.updateUserImageUrl(userId, imageUrl);
+
         return imageUrl;
     }
 }

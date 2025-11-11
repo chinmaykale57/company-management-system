@@ -23,7 +23,7 @@ public class CloudinaryService {
                     file.getBytes(),
                     ObjectUtils.asMap("folder", "sellerhelp/users")
             );
-            return (String) result.get("secure_url");
+            return result.get("secure_url").toString();
         } catch (IOException e) {
             throw new RuntimeException("Image upload failed", e);
         }

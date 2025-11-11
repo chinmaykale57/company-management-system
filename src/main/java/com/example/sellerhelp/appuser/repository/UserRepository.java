@@ -53,9 +53,13 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
             @Param("role") Role role
     );
 
-    @Modifying
-    @Query("UPDATE User u SET u.imageUrl )
-            void
+    @Modifying(clearAutomatically = true)
+    @Query("UPDATE User u SET u.imageUrl = :imageUrl WHERE u.userId = :userId")
+    void updateUserImageUrl(@Param("userId") String userId, @Param("imageUrl") String imageUrl);
+
+//    @Modifying
+//    @Query("UPDATE User u SET u.imageUrl )
+//            void
 
     // DELETED
     // - findAllUsers(...)
