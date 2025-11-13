@@ -55,9 +55,9 @@ public class UserController {
     @GetMapping("/employees") //
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ApiResponseDto<Page<UserDto>>> searchEmployees(
-            @ModelAttribute UserFilterDto filter,
+            @ModelAttribute UserFilterDto filter, @RequestParam(value = "q", required = false) String query,
             @ModelAttribute PageableDto pageableDto) {
-        Page<UserDto> usersPage = userService.searchEmployees(filter, pageableDto);
+        Page<UserDto> usersPage = userService.searchEmployees(filter, query, pageableDto);
         return ResponseEntity.ok(ApiResponseDto.ok(usersPage));
     }
 

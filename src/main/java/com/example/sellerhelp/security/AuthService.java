@@ -35,7 +35,7 @@ public class AuthService {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        return new UserLoginResponseDto( user.getName(), user.getEmail(), user.getRole().getName().name(), jwtUtil.generateToken(email)) ;
+        return new UserLoginResponseDto( user.getId(), user.getName(), user.getEmail(), user.getRole().getName().name(), jwtUtil.generateToken(email)) ;
     }
 
     /**

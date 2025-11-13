@@ -29,7 +29,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiResponseDto<Map<String, String>>> unauthorized(BadCredentialsException e) {
         return ResponseEntity
                 .status(HttpStatus.UNAUTHORIZED)
-                .body(ApiResponseDto.error(e.getMessage(), HttpStatus.UNAUTHORIZED));
+                .body(ApiResponseDto.error("Wrong Email or Password", HttpStatus.UNAUTHORIZED));
     }
 
     // 403 - Forbidden

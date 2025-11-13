@@ -41,8 +41,9 @@ public class UserService {
     private final CloudinaryService cloudinaryService;
 
     //  filters + pagination + sorting
-    public Page<UserDto> searchEmployees(UserFilterDto filter, PageableDto pageReq) {
+    public Page<UserDto> searchEmployees(UserFilterDto filter, String query, PageableDto pageReq) {
         Specification<User> spec = UserSpecifications.withFilter(filter);
+        if (!query.isBlank()){ spec = spec.and(UserSpecifications.globalSearch(query));}
         return userRepo.findAll(spec, toPageable(pageReq)).map(UserService::toDto);
     }
 

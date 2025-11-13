@@ -33,6 +33,8 @@ public class AuthController {
 
         return ResponseEntity.ok(ApiResponseDto.ok(dto));
     }
+
+    //search sort and filter in one endpoint
     // You would also add a @PostMapping("/signup") here
     // that calls a method in UserService to create a new user.
 }
